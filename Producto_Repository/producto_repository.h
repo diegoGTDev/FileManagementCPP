@@ -12,7 +12,7 @@ class ProductoRepository{
         };
         void agregar(Producto producto);
         void modificar(Producto producto);
-        void mostrarTodos();
+        void generarReporte();
         Producto obtenerProducto(int id);
 };
 

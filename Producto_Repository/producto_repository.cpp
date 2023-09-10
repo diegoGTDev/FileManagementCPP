@@ -15,7 +15,7 @@ void ProductoRepository::modificar(Producto producto)
 Producto obtenerProducto(int id){
 
 }
-void ProductoRepository::mostrarTodos()
+void ProductoRepository::generarReporte()
 {
     
 FILE *archivo;
