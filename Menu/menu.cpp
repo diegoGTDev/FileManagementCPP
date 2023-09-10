@@ -1,6 +1,8 @@
 #include"menu.h"
 #include<iostream>
 #include<conio.h>
+#include<string.h>
+
 using namespace std;
 void imprimirMenu(){
     cout<<"\tSistema de inventario"<<endl<<endl;
@@ -12,6 +14,7 @@ void imprimirMenu(){
     cout<<"Presione una opcion\n";
 }
 void menu_agregarProductos(ProductoRepository productoRepository){
+    system("cls");  
     static int counter = 1;
     while (true){
         fflush(stdin);
@@ -54,6 +57,7 @@ Categoria seleccionarCategoria(){
     }
 }
 void menu_modificarProductos(ProductoRepository productoRepository){
+    system("cls");
     Producto registro;
             fflush(stdin);
             int id;
