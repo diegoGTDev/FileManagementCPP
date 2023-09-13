@@ -1,9 +1,8 @@
 #include "file_manager.h"
 #include "../Producto/Producto.h"
-#include <string.h>
-#include <iostream>
-using namespace std;
-bool FileManager::existeArchivo()
+
+template <typename T>
+bool FileManager<T>::existeArchivo()
 {
     archivo = fopen(nombre_archivo,"r");
     if (archivo == nullptr){
@@ -12,33 +11,18 @@ bool FileManager::existeArchivo()
     }
     return false;
 }
-
-FILE *FileManager::getArchivo()
+template <typename T>
+FILE *FileManager<T>::getArchivo()
 {
     return archivo;
 }
-Producto FileManager::obtenerObjeto(int id){
-    Producto producto;
-    archivo = fopen("productos.dat", "rt");
-    if (archivo == NULL) {
-        cout << "Error al abrir el archivo\n";
-        return producto;
-    }
-    while(fread(&producto, sizeof(Producto), 1, archivo)){
-        if(producto.id == id){
-            break;
-        }
-    }
-    fclose(archivo);
-    return producto;
-
-}
-bool FileManager::finalArchivo()
+template<typename T>
+bool FileManager<T>::finalArchivo()
 {
     return feof(archivo);
 }
-
-void FileManager::escribir(Producto objeto)
+template<typename T>
+void FileManager<T>::escribir(T objeto)
 {
     if (existeArchivo()){
         archivo = fopen(this->nombre_archivo,"w");
@@ -51,8 +35,8 @@ void FileManager::escribir(Producto objeto)
         fclose(archivo);
     }
 }
-
-void FileManager::modificar(Producto producto)
+template<typename T>
+void FileManager<T>::modificar(T producto)
 {
     archivo = fopen("productos.dat", "r+b");
     if (archivo == NULL) {
@@ -76,16 +60,30 @@ void FileManager::modificar(Producto producto)
     }
     fclose(archivo);
 }
-
-Producto FileManager::leer(Producto producto)
+template<typename T>
+T FileManager<T>::leer(T producto)
 {
     archivo = fopen(nombre_archivo,"rt");
     fread(&producto,sizeof(producto),1,archivo);
     cerrar();
     return producto;
 }
-
-void FileManager::cerrar()
+template<typename T>
+void FileManager<T>::eliminar(T objeto){
+    archivo = fopen(nombre_archivo,"rt");
+    T registro;
+    while(fread(&registro,sizeof(T),1,archivo)){
+        if(registro.id == objeto.id){
+            fseek(archivo, -sizeof(T), SEEK_CUR);
+            fwrite(&registro, sizeof(T), 1, archivo);
+            break;
+        }
+    }
+    cerrar();
+    cout<<"obj: "<<objeto.nombre<<endl;
+}
+template<typename T>
+void FileManager<T>::cerrar()
 {
 
     fclose(archivo);

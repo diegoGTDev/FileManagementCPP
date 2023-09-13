@@ -2,6 +2,8 @@
 #include<iostream>
 #include<conio.h>
 #include<string.h>
+#include"../Producto/Producto.h"
+#include"../Producto_Repository/producto_Repository.h"
 
 using namespace std;
 void imprimirMenu(){
@@ -13,13 +15,12 @@ void imprimirMenu(){
     "[5] Salir\n";
     cout<<"Presione una opcion\n";
 }
-void menu_agregarProductos(ProductoRepository productoRepository){
+void menu_agregarProductos(ProductoRepository& productoRepository){
     system("cls");  
-    static int counter = 1;
     while (true){
         fflush(stdin);
         Producto producto;
-        producto.id = counter;
+        producto.id = productoRepository.obtenerCantidadProductos()+1;
         cout<<"Ingrese el nombre del producto: ";cin.getline(producto.nombre,60,'\n');
         cout<<"Ingrese la cantidad disponible: ";cin>>producto.cantidad;
         cout<<"Ingrese el precio: ";cin>>producto.precio;
@@ -31,7 +32,6 @@ void menu_agregarProductos(ProductoRepository productoRepository){
             break;
         }
         system("cls");
-        counter++;
     }
 }
 Categoria seleccionarCategoria(){
@@ -56,7 +56,7 @@ Categoria seleccionarCategoria(){
             return seleccionarCategoria();
     }
 }
-void menu_modificarProductos(ProductoRepository productoRepository){
+void menu_modificarProductos(ProductoRepository& productoRepository){
     system("cls");
     Producto registro;
             fflush(stdin);
@@ -115,4 +115,12 @@ void menu_modificarProductos(ProductoRepository productoRepository){
             else{
                 cout<<"Opcion invalida\n";
             }
+}
+
+void menu_eliminarProducto(ProductoRepository& productoRepository){
+    system("cls");
+    int id;
+    cout<<"Ingrese la id del producto a eliminar: ";cin>>id;
+    productoRepository.eliminar(id);
+    cout<<"Producto eliminado correctamente\n";
 }

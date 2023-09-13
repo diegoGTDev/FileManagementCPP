@@ -8,7 +8,6 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${workspaceFolder}\\main.cpp",
-                "${workspaceFolder}\\File_Manager\\file_manager.cpp",
                 "${workspaceFolder}\\File_Manager\\file_manager.h",
                 "${workspaceFolder}\\Menu\\menu.cpp",
                 "${workspaceFolder}\\Menu\\menu.h",
