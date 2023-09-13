@@ -48,12 +48,19 @@ Producto ProductoRepository::obtenerProducto(int id){
 void ProductoRepository::generarReporte()
 {
     for(int i = 0; i<productos.size(); i++){
+        char categoria[20];
+        switch(productos[i].categoria){
+            case 0: strcpy(categoria, "Alimentos");break;
+            case 1: strcpy(categoria, "Bebidas");break;
+            case 2: strcpy(categoria, "Limpieza");break;
+            case 3: strcpy(categoria, "Otros");break;
+        }
         cout<<"ID: "<<productos[i].id<<endl;
         cout<<"Nombre: "<<productos[i].nombre<<endl;
         cout<<"Cantidad: "<<productos[i].cantidad<<endl;
         cout<<"Precio: "<<productos[i].precio<<endl;
         cout<<"Lote: "<<productos[i].lote<<endl;
-        cout<<"Categoria: "<<productos[i].categoria<<endl;
+        cout<<"Categoria: "<<categoria<<endl;
         cout<<"-----------------------------------\n";
     }
 

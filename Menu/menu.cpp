@@ -25,7 +25,7 @@ void menu_agregarProductos(ProductoRepository& productoRepository){
         cout<<"Ingrese la cantidad disponible: ";cin>>producto.cantidad;
         cout<<"Ingrese el precio: ";cin>>producto.precio;
         cout<<"Ingrese el lote: ";cin>>producto.lote;
-        producto.categoria = seleccionarCategoria();
+        producto.categoria = alimentos;
         productoRepository.agregar(producto);
         cout<<"\nDesea agregar otro producto? (s/n): \n";
         if (getch() == 'n'){
