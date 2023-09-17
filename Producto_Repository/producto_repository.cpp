@@ -35,6 +35,7 @@ void ProductoRepository::modificar(Producto producto)
             productos[i].precio = producto.precio;
             strcpy(productos[i].lote, producto.lote);
             productos[i].categoria = producto.categoria;
+            fileManager.modificar(productos[i]);
         }
     }
 }
@@ -44,9 +45,14 @@ Producto ProductoRepository::obtenerProducto(int id){
             return productos[i];
         }
     }
+
 }
 void ProductoRepository::generarReporte()
 {
+    if (productos.size() == 0){
+        cout<<"No hay productos registrados"<<endl;
+        return;
+    }
     for(int i = 0; i<productos.size(); i++){
         char categoria[20];
         switch(productos[i].categoria){
@@ -67,12 +73,17 @@ void ProductoRepository::generarReporte()
 }
 void ProductoRepository::eliminar(int id)
 {
+    if (!this->existeProducto(id)){
+        cout<<"No existe dicho producto\n";
+        return;
+    }
     Producto p;
     for(int i =0;i<productos.size();i++){
         if(productos[i].id == id){
             p = productos[i];
             productos.erase(productos.begin()+i);
             fileManager.eliminar(p);
+            cout<<"Producto eliminado correctamente"<<endl;
         }
     }
     
@@ -81,4 +92,13 @@ void ProductoRepository::eliminar(int id)
 int ProductoRepository::obtenerCantidadProductos()
 {
     return productos.size();
+}
+
+bool ProductoRepository::existeProducto(int id){
+    for(int i=0; i<productos.size();i++){
+        if(productos[i].id == id){
+            return true;
+        }
+    }
+    return false;
 }

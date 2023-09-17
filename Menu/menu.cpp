@@ -25,7 +25,7 @@ void menu_agregarProductos(ProductoRepository& productoRepository){
         cout<<"Ingrese la cantidad disponible: ";cin>>producto.cantidad;
         cout<<"Ingrese el precio: ";cin>>producto.precio;
         cout<<"Ingrese el lote: ";cin>>producto.lote;
-        producto.categoria = alimentos;
+        producto.categoria = seleccionarCategoria();
         productoRepository.agregar(producto);
         cout<<"\nDesea agregar otro producto? (s/n): \n";
         if (getch() == 'n'){
@@ -66,6 +66,10 @@ void menu_modificarProductos(ProductoRepository& productoRepository){
             cout<<"MODIFICAR REGISTRO -- DIGITE 0 PARA SALIR\n";
             cout<<"Ingrese la id del producto a modificar: ";cin>>id;
             registro = productoRepository.obtenerProducto(id);
+            if(!productoRepository.existeProducto(registro.id)){
+                cout<<"No se ha encontrado el producto"<<endl;
+                return;
+            };
             cout<<"Modificar: \n"
             "1. Nombre\n"
             "2. Cantidad\n"
@@ -122,5 +126,4 @@ void menu_eliminarProducto(ProductoRepository& productoRepository){
     int id;
     cout<<"Ingrese la id del producto a eliminar: ";cin>>id;
     productoRepository.eliminar(id);
-    cout<<"Producto eliminado correctamente\n";
 }

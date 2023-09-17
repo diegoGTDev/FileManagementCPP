@@ -66,6 +66,7 @@ template<typename T>
 void FileManager<T>::modificar(T producto)
 {
     archivo = fopen("productos.dat", "r+b");
+    // FILE *ftemp = fopen("temp.dat", "w+b");
     if (archivo == NULL) {
         cout << "Error al abrir el archivo\n";
         return;
@@ -84,7 +85,11 @@ void FileManager<T>::modificar(T producto)
             fwrite(&registro, sizeof(Producto), 1, archivo);
             break;
         }
+        //fwrite(&registro, sizeof(Producto), 1, ftemp);
     }
+    //remove(nombre_archivo);
+    // rename("temp.dat", nombre_archivo);
+    // fclose(ftemp);
     fclose(archivo);
 }
 template<typename T>

@@ -15,6 +15,7 @@ class ProductoRepository{
         void agregar(Producto producto);
         void init();
         void modificar(Producto producto);
+        bool existeProducto(int id);
         void eliminar(int id);
         void generarReporte();
         int obtenerCantidadProductos();
