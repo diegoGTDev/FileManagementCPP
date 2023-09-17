@@ -75,12 +75,13 @@ void FileManager<T>::modificar(T producto)
         if (registro.id == producto.id) {
             // Modificar los campos del registro
             strcpy(registro.nombre, producto.nombre);
+            registro.nombre = producto.nombre;
             registro.cantidad = producto.cantidad;
             registro.precio = producto.precio;
             strcpy(registro.lote, producto.lote);
             registro.categoria = producto.categoria;
             // Escribir el registro modificado en el archivo
-            fseek(archivo, -sizeof(Producto), SEEK_CUR);
+            //fseek(archivo, -sizeof(Producto), SEEK_CUR);
             fwrite(&registro, sizeof(Producto), 1, archivo);
             break;
         }

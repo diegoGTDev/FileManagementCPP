@@ -8,8 +8,6 @@ struct Producto{
     int precio;
     char lote[40];
     Categoria categoria;
-
-
 };
 
 #endif

@@ -38,6 +38,7 @@ void ProductoRepository::modificar(Producto producto)
         }
     }
 }
+
 Producto ProductoRepository::obtenerProducto(int id){
     for(int i =0;i<productos.size();i++){
         if(productos[i].id == id){
