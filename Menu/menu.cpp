@@ -20,7 +20,7 @@ void menu_agregarProductos(ProductoRepository& productoRepository){
     while (true){
         fflush(stdin);
         Producto producto;
-        producto.id = productoRepository.obtenerCantidadProductos()+1;
+        producto.id = productoRepository.nuevaID();
         cout<<"Ingrese el nombre del producto: ";cin.getline(producto.nombre,60,'\n');
         cout<<"Ingrese la cantidad disponible: ";cin>>producto.cantidad;
         cout<<"Ingrese el precio: ";cin>>producto.precio;

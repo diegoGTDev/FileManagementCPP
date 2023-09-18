@@ -3,24 +3,35 @@
 #include "../File_Manager/file_manager.h"
 #include<iostream>
 #include<string.h>
+#include"../funciones/funciones.h"
+#include<typeinfo>
 using namespace std;
 
 void ProductoRepository::init()
 {
-    //Get all the data in the file and save it on the vector
-    FILE *archivo;
-    archivo = fopen(nombre_archivo, "rt");
-    Producto producto;
-    while (fread(&producto, sizeof(Producto), 1, archivo)) {
-        // process the record
-        productos.push_back(producto);
+
+    this->productos = fileManager.leerTodo();
+    
+    //Configuración del repositorio
+    if (fileConfigManager.existeArchivo() == false){
+        fileConfigManager.escribir(1);
+        fileConfigManager.cerrar();
     }
-    fclose(archivo);
+    else{
+        int id;
+        id = fileConfigManager.leer();
+        fileConfigManager.cerrar();
+        cout<<"ID:      ";
+        cout<<id<<endl;
+    }
 
 
 }
+
 void ProductoRepository::agregar(Producto producto)
 {
+    int newID = producto.id+1;
+    fileConfigManager.modificar(newID);
     fileManager.escribir(producto);
     productos.push_back(producto);
 }
@@ -35,7 +46,7 @@ void ProductoRepository::modificar(Producto producto)
             productos[i].precio = producto.precio;
             strcpy(productos[i].lote, producto.lote);
             productos[i].categoria = producto.categoria;
-            fileManager.modificar(productos[i]);
+            fileManager.modificarP(productos[i]);
         }
     }
 }
@@ -54,6 +65,21 @@ void ProductoRepository::generarReporte()
         cout<<"No hay productos registrados"<<endl;
         return;
     }
+    gotoxy(12, 10);
+    cambiarColor(11);
+    cout<<"ID: ";
+    gotoxy(20, 10);
+    cout<<"Nombre: ";
+    gotoxy(35, 10);
+    cout<<"Cantidad: ";
+    gotoxy(45, 10);
+    cout<<"Precio: ";
+    gotoxy(55, 10);
+    cout<<"Lote: ";
+    gotoxy(65, 10);
+    cout<<"Categoria: ";
+    cambiarColor(15);
+    
     for(int i = 0; i<productos.size(); i++){
         char categoria[20];
         switch(productos[i].categoria){
@@ -62,13 +88,19 @@ void ProductoRepository::generarReporte()
             case 2: strcpy(categoria, "Limpieza");break;
             case 3: strcpy(categoria, "Otros");break;
         }
-        cout<<"ID: "<<productos[i].id<<endl;
-        cout<<"Nombre: "<<productos[i].nombre<<endl;
-        cout<<"Cantidad: "<<productos[i].cantidad<<endl;
-        cout<<"Precio: "<<productos[i].precio<<endl;
-        cout<<"Lote: "<<productos[i].lote<<endl;
-        cout<<"Categoria: "<<categoria<<endl;
-        cout<<"-----------------------------------\n";
+        gotoxy(12, 11+i);
+        cout<<productos[i].id;
+        gotoxy(20,11+i);
+        cout<<productos[i].nombre;
+        gotoxy(35, 11+i);
+        cout<<productos[i].cantidad;
+        gotoxy(45,11+i);
+        cout<<productos[i].precio;
+        gotoxy(55,11+i);
+        cout<<productos[i].lote;
+        gotoxy(65,11+i);
+        cout<<categoria;
+        gotoxy(0,11+i+2);
     }
 
 }
@@ -90,9 +122,11 @@ void ProductoRepository::eliminar(int id)
     
 }
 
-int ProductoRepository::obtenerCantidadProductos()
+int ProductoRepository::nuevaID()
 {
-    return productos.size();
+    int newID;
+    newID = fileConfigManager.leer();
+    return newID;
 }
 
 bool ProductoRepository::existeProducto(int id){

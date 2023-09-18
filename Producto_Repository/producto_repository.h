@@ -9,7 +9,8 @@ class ProductoRepository{
     public:
         char* nombre_archivo;
         FileManager<Producto> fileManager;
-        ProductoRepository(char* nombre_archivo):fileManager(nombre_archivo) , nombre_archivo(nombre_archivo){
+        FileManager<int> fileConfigManager;
+        ProductoRepository(char* nombre_archivo):fileManager(nombre_archivo) , nombre_archivo(nombre_archivo), fileConfigManager("cfg.dat"){
             this->init();
         };
         void agregar(Producto producto);
@@ -18,7 +19,7 @@ class ProductoRepository{
         bool existeProducto(int id);
         void eliminar(int id);
         void generarReporte();
-        int obtenerCantidadProductos();
+        int nuevaID();
         Producto obtenerProducto(int id);
 };
 

@@ -1,12 +1,5 @@
 #include<iostream>
-#include <stdio.h>
-#include <stdlib.h>
 #include <conio.h>
-#include <string.h>
-#include <string>
-#include <cstdio>
-#include <cstring>
-#include<windows.h>
 #include "Producto/Producto.h"
 #include "Producto_Repository/producto_Repository.h"
 #include "Menu/menu.h"
