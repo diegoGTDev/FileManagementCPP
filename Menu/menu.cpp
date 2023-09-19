@@ -66,6 +66,10 @@ void menu_modificarProductos(ProductoRepository& productoRepository){
             modOpc = 1;
             cout<<"MODIFICAR REGISTRO -- DIGITE 0 PARA SALIR\n";
             cout<<"Ingrese la id del producto a modificar: ";cin>>id;
+            //Si la id es 0, salir
+            if(id == 0){
+                return;
+            }
             registro = productoRepository.obtenerProducto(id);
             if(!productoRepository.existeProducto(registro.id)){
                 cout<<"No se ha encontrado el producto"<<endl;
@@ -113,9 +117,6 @@ void menu_modificarProductos(ProductoRepository& productoRepository){
                 //Modificar categoria
                 registro.categoria = seleccionarCategoria();
                 productoRepository.modificar(registro);
-            }
-            else if (modOpc == 0){
-                return;   
             }
             else{
                 cout<<"Opcion invalida\n";

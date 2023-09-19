@@ -6,7 +6,7 @@
 using namespace std;
 
 int main(){
-    ProductoRepository productoRepository("productos.dat");
+    ProductoRepository productoRepository("caca.dat");
     inicio:
     system("cls");
     imprimirMenu();

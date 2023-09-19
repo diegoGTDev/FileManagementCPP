@@ -2,10 +2,10 @@
 #include <fstream>
 #include <string.h>
 #include <iostream>
-using namespace std;
 #include "../Producto/Producto.h"
 #include <typeinfo>
 #include<vector>
+using namespace std;
 #ifndef FILE_MANAGER_H
 #define FILE_MANAGER_H
 
@@ -13,19 +13,19 @@ template <class T>
 class FileManager
 {
 private:
-    char *nombre_archivo;
+    char* nombre_archivo;
     FILE *archivo;
 
 public:
-    FileManager(char *nombre_archivo)
+    FileManager(char* nombre_archivo)
     {
         this->nombre_archivo = nombre_archivo;
     };
 
-    void escribir(T objeto);
-    void eliminar(T objeto);
-    void modificarP(T producto);
-    void modificar(T registro);
+    void escribir(T registro);
+    void eliminar(T registro);
+    void modificarP(T registro);
+    void modificarCFG(T registro);
     vector<T> leerTodo();
     T leer();
     T obtenerObjeto(int id);
@@ -53,9 +53,10 @@ bool FileManager<T>::existeArchivo()
     archivo = fopen(nombre_archivo, "r+b");
     if (archivo == nullptr)
     {
-        fclose(archivo);
+        cerrar();
         return false;
     }
+    cerrar();
     return true;
 }
 template <typename T>
@@ -69,47 +70,48 @@ bool FileManager<T>::finalArchivo()
     return feof(archivo);
 }
 template <typename T>
-void FileManager<T>::escribir(T objeto)
+void FileManager<T>::escribir(T registro)
 {
     if (!(existeArchivo()))
     {
         archivo = fopen(this->nombre_archivo, "w+b");
-        fwrite(&objeto, sizeof(objeto), 1, archivo);
-        fclose(archivo);
+        fwrite(&registro, sizeof(registro), 1, archivo);
+        cerrar();
     }
     else
     {
         archivo = fopen(this->nombre_archivo, "a+b");
-        fwrite(&objeto, sizeof(objeto), 1, archivo);
-        fclose(archivo);
+        fwrite(&registro, sizeof(registro), 1, archivo);
+        cerrar();
     }
 }
 template <typename T>
-void FileManager<T>::modificarP(T producto)
+void FileManager<T>::modificarP(T registro)
 {
     archivo = fopen(nombre_archivo, "rw+b");
 
-    Producto registro;
-    while (fread(&registro, sizeof(Producto), 1, archivo))
+    Producto registroTemp;
+    while (fread(&registro, sizeof(registro), 1, archivo))
     {
-        if (registro.id == producto.id)
+        if (registro.id == registro.id)
         {
             // Modificar los campos del registro
-            strcpy(registro.nombre, producto.nombre);
-            registro.cantidad = producto.cantidad;
-            registro.precio = producto.precio;
-            strcpy(registro.lote, producto.lote);
-            registro.categoria = producto.categoria;
-            fwrite(&registro, sizeof(Producto), 1, archivo);
+            strcpy(registroTemp.nombre, registro.nombre);
+            registroTemp.cantidad = registro.cantidad;
+            registroTemp.precio = registro.precio;
+            strcpy(registroTemp.lote, registro.lote);
+            registroTemp.categoria = registro.categoria;
+            fwrite(&registroTemp, sizeof(Producto), 1, archivo);
             break;
         }
     }
 
-    fclose(archivo);
+    cerrar();
 }
 template<typename T>
-void FileManager<T>::modificar(T registro){
-    int id = registro;
+void FileManager<T>::modificarCFG(T registro){
+
+   int id = registro;
     archivo = fopen(nombre_archivo, "r+b");
     fwrite(&id, sizeof(int), 1, archivo);
     cerrar();
@@ -125,18 +127,18 @@ T FileManager<T>::leer()
     return result;
 }
 template <typename T>
-void FileManager<T>::eliminar(T objeto)
+void FileManager<T>::eliminar(T registro)
 {
     archivo = fopen(nombre_archivo, "r+b");
     FILE *archivoTemp;
     char *tempArch = "temp.dat";
     archivoTemp = fopen(tempArch, "w+b");
-    T registro;
-    while (fread(&registro, sizeof(T), 1, archivo))
+    T registroTemp;
+    while (fread(&registroTemp, sizeof(T), 1, archivo))
     {
-        if (!(registro.id == objeto.id))
+        if (!(registroTemp.id == registro.id))
         {
-            fwrite(&registro, sizeof(T), 1, archivoTemp);
+            fwrite(&registroTemp, sizeof(T), 1, archivoTemp);
         }
     }
     cerrar();

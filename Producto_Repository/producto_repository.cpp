@@ -9,11 +9,14 @@ using namespace std;
 
 void ProductoRepository::init()
 {
-
+    //Cargamos todos los objetos que contenga filemanager en nuestro vector
+    //Esto para un manejo sencillo de los datos dentro del codigo
     this->productos = fileManager.leerTodo();
-    
     //Configuración del repositorio
     if (fileConfigManager.existeArchivo() == false){
+        /* En caso de no existir  el archivo cfg, crea uno nuevo
+            escribiendo en el, el id inicial que será 1.  
+        */
         fileConfigManager.escribir(1);
         fileConfigManager.cerrar();
     }
@@ -21,8 +24,6 @@ void ProductoRepository::init()
         int id;
         id = fileConfigManager.leer();
         fileConfigManager.cerrar();
-        cout<<"ID:      ";
-        cout<<id<<endl;
     }
 
 
@@ -31,7 +32,7 @@ void ProductoRepository::init()
 void ProductoRepository::agregar(Producto producto)
 {
     int newID = producto.id+1;
-    fileConfigManager.modificar(newID);
+    fileConfigManager.modificarCFG(newID);
     fileManager.escribir(producto);
     productos.push_back(producto);
 }
