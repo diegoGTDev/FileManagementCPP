@@ -14,6 +14,7 @@ int main(){
     switch(getch()){
         case '1': menu_agregarProductos(productoRepository);break;
         case '2': 
+            productoRepository.generarReporte();
             menu_modificarProductos(productoRepository);
             break;
         case '3': menu_generarReporte(productoRepository);break;

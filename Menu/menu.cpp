@@ -31,17 +31,25 @@ void imprimirMenu(){
 }
 void menu_agregarProductos(ProductoRepository& productoRepository){
     system("cls");  
+    gotoxy(45, 2);
+    cout<<"\033[1;33mNuevo producto\033[0m";
     while (true){
         fflush(stdin);
         Producto producto;
         producto.id = productoRepository.nuevaID();
+        gotoxy(30, 4);
         cout<<"Ingrese el nombre del producto: ";cin.getline(producto.nombre,60,'\n');
+        gotoxy(30, 6);
         cout<<"Ingrese la cantidad disponible: ";cin>>producto.cantidad;
+        gotoxy(30, 8);
         cout<<"Ingrese el precio: ";cin>>producto.precio;
+        gotoxy(30, 10);
         cout<<"Ingrese el lote: ";cin>>producto.lote;
+        gotoxy(30, 12);
         producto.categoria = seleccionarCategoria();
         productoRepository.agregar(producto);
-        cout<<"\nDesea agregar otro producto? (s/n): \n";
+        gotoxy(30, 24);
+        cout<<"Desea agregar otro producto? (presione s/n)";
         if (getch() == 'n'){
             break;
         }
@@ -51,11 +59,16 @@ void menu_agregarProductos(ProductoRepository& productoRepository){
 }
 Categoria seleccionarCategoria(){
     int opcion;
-    cout<<"Seleccione la categoria del producto: \n";
-    cout<<"1. Alimentos\n";
-    cout<<"2. Bebidas\n";
-    cout<<"3. Limpieza\n";
-    cout<<"4. Otros\n";
+    cout<<"Seleccione la categoria del producto: ";
+    gotoxy(30, 14);
+    cout<<"1. Alimentos";
+    gotoxy(30, 16);
+    cout<<"2. Bebidas";
+    gotoxy(30, 18);
+    cout<<"3. Limpieza";
+    gotoxy(30, 20);
+    cout<<"4. Otros";
+    gotoxy(30, 22);
     cout<<"Opcion: ";cin>>opcion;
     switch (opcion){
         case 1:
