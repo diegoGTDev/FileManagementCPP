@@ -8,11 +8,16 @@ class ProductoRepository{
     private:
         std::vector<Producto> productos;
     public:
-        char *nombre_archivo;
+        char nombre_archivo[50];
+        char nombre_archivo_cfg[50];
         FileManager<Producto> fileManager;
         FileManager<int> fileConfigManager;
-        ProductoRepository(char* nombre_archivo):fileManager(nombre_archivo) , 
-        nombre_archivo(nombre_archivo), fileConfigManager("cfg.dat"){
+        ProductoRepository(char nombre_archivo[50]):fileManager(nombre_archivo) , 
+        fileConfigManager(nombre_archivo_cfg){
+            strcpy(this->nombre_archivo, nombre_archivo);
+            strcpy(this->nombre_archivo_cfg, nombre_archivo);
+            strcat(this->nombre_archivo_cfg, "_cfg");
+            fileConfigManager.setNombreArchivo(this->nombre_archivo_cfg);
             this->init();
         };
         void agregar(Producto producto);

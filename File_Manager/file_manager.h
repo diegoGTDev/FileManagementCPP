@@ -13,13 +13,14 @@ template <class T>
 class FileManager
 {
 private:
-    char* nombre_archivo;
+    char nombre_archivo[50];
     FILE *archivo;
 
 public:
-    FileManager(char* nombre_archivo)
+    FileManager(char nombre_archivo[50])
     {
-        this->nombre_archivo = nombre_archivo;
+        strcpy(this->nombre_archivo, nombre_archivo);
+        strcat(this->nombre_archivo, ".dat");
     };
 
     void escribir(T registro);
@@ -31,6 +32,7 @@ public:
     T obtenerObjeto(int id);
     bool existeArchivo();
     FILE *getArchivo();
+    void setNombreArchivo(char nombre_archivo[50]);
     bool finalArchivo();
     void cerrar();
 };
@@ -125,6 +127,12 @@ T FileManager<T>::leer()
     fread(&result, sizeof(T), 1, archivo);
     cerrar();
     return result;
+}
+template <class T>
+void FileManager<T>::setNombreArchivo(char nombre_archivo[50])
+{
+    strcpy(this->nombre_archivo, nombre_archivo);
+    strcat(this->nombre_archivo, ".dat");
 }
 template <typename T>
 void FileManager<T>::eliminar(T registro)

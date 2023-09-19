@@ -4,16 +4,30 @@
 #include<string.h>
 #include"../Producto/Producto.h"
 #include"../Producto_Repository/producto_Repository.h"
+#include"../funciones/funciones.h"
 
 using namespace std;
 void imprimirMenu(){
-    cout<<"\tSistema de inventario"<<endl<<endl;
-    cout<<"[1] Agregar registro\n"
-    "[2] Modificar registro\n"
-    "[3] Generar reporte\n"
-    "[4] Eliminar registro\n"
-    "[5] Salir\n";
-    cout<<"Presione una opcion\n";
+    gotoxy(45,2);
+    cout<<"\033[1;33mSistema de inventario\033[0m"<<endl<<endl;
+    //Fila 1 Columna 1;
+    gotoxy(30,4);
+    cout<<"[1] Agregar registro";
+    //Fila 1 Columna 2
+    gotoxy(62, 4);
+    cout<<"[2] Modificar registro";
+    //Fila 2 Columna 1
+    gotoxy(30, 6);
+    cout<<"[3] Generar reporte";
+    //Fila 2 Columna 2
+    gotoxy(62, 6);
+    cout<<"[4] Eliminar registro";
+    //Fila 3 Columna 1
+    gotoxy(30, 8);
+    cout<<"[5] \033[5;31mSalir\033[0m";
+    //Fila 4 Columna1
+    gotoxy(30, 10);
+    cout<<">>";
 }
 void menu_agregarProductos(ProductoRepository& productoRepository){
     system("cls");  
@@ -128,4 +142,12 @@ void menu_eliminarProducto(ProductoRepository& productoRepository){
     int id;
     cout<<"Ingrese la id del producto a eliminar: ";cin>>id;
     productoRepository.eliminar(id);
+}
+
+void menu_generarReporte(ProductoRepository& productoRepository){
+    system("cls");
+    gotoxy(45, 2);
+    cambiarColor(6);
+    cout<<"Reporte de inventario\n\n";
+    productoRepository.generarReporte();
 }

@@ -5,3 +5,4 @@ Categoria seleccionarCategoria();
 void menu_agregarProductos(ProductoRepository& productoRepository);
 void menu_modificarProductos(ProductoRepository& productoRepository);
 void menu_eliminarProducto(ProductoRepository& productoRepository);
+void menu_generarReporte(ProductoRepository& productoRepository);

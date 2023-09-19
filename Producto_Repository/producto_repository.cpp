@@ -63,21 +63,22 @@ Producto ProductoRepository::obtenerProducto(int id){
 void ProductoRepository::generarReporte()
 {
     if (productos.size() == 0){
-        cout<<"No hay productos registrados"<<endl;
+        gotoxy(42, 5);
+        cout<<"\033[1;31mNo hay productos registrados\033[0m"<<endl;
         return;
     }
-    gotoxy(12, 10);
     cambiarColor(11);
+    gotoxy(22, 5);
     cout<<"ID: ";
-    gotoxy(20, 10);
+    gotoxy(30, 5);
     cout<<"Nombre: ";
-    gotoxy(35, 10);
+    gotoxy(45, 5);
     cout<<"Cantidad: ";
-    gotoxy(45, 10);
+    gotoxy(55, 5);
     cout<<"Precio: ";
-    gotoxy(55, 10);
+    gotoxy(65, 5);
     cout<<"Lote: ";
-    gotoxy(65, 10);
+    gotoxy(75, 5);
     cout<<"Categoria: ";
     cambiarColor(15);
     
@@ -89,19 +90,19 @@ void ProductoRepository::generarReporte()
             case 2: strcpy(categoria, "Limpieza");break;
             case 3: strcpy(categoria, "Otros");break;
         }
-        gotoxy(12, 11+i);
+        gotoxy(22, 6+i);
         cout<<productos[i].id;
-        gotoxy(20,11+i);
+        gotoxy(30,6+i);
         cout<<productos[i].nombre;
-        gotoxy(35, 11+i);
+        gotoxy(45, 6+i);
         cout<<productos[i].cantidad;
-        gotoxy(45,11+i);
+        gotoxy(55,6+i);
         cout<<productos[i].precio;
-        gotoxy(55,11+i);
+        gotoxy(65,6+i);
         cout<<productos[i].lote;
-        gotoxy(65,11+i);
+        gotoxy(75,6+i);
         cout<<categoria;
-        gotoxy(0,11+i+2);
+        gotoxy(0,6+i+2);
     }
 
 }
