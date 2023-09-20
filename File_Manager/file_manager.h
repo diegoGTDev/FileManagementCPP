@@ -42,7 +42,8 @@ vector<T> FileManager<T>::leerTodo(){
     vector<T> result;
     archivo = fopen(nombre_archivo, "rb");
     T registro;
-    while (fread(&registro, sizeof(T), 1, archivo))
+
+    while(fread(&registro, sizeof(T), 1, archivo))
     {
         result.push_back(registro);
     }
@@ -90,12 +91,12 @@ void FileManager<T>::escribir(T registro)
 template <typename T>
 void FileManager<T>::modificarP(T registro)
 {
-    archivo = fopen(nombre_archivo, "rw+b");
+    archivo = fopen(nombre_archivo, "r+b");
 
     Producto registroTemp;
-    while (fread(&registro, sizeof(registro), 1, archivo))
+    while (fread(&registroTemp, sizeof(T), 1, archivo))
     {
-        if (registro.id == registro.id)
+        if (registroTemp.id == registro.id)
         {
             // Modificar los campos del registro
             strcpy(registroTemp.nombre, registro.nombre);
@@ -103,7 +104,8 @@ void FileManager<T>::modificarP(T registro)
             registroTemp.precio = registro.precio;
             strcpy(registroTemp.lote, registro.lote);
             registroTemp.categoria = registro.categoria;
-            fwrite(&registroTemp, sizeof(Producto), 1, archivo);
+            fseek(archivo, -sizeof(T), SEEK_CUR);
+            fwrite(&registroTemp, sizeof(T), 1, archivo);
             break;
         }
     }

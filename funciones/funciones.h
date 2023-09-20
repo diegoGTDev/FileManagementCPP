@@ -5,6 +5,7 @@ void gotoxy(int x, int y);
 
 void cambiarColor(int color);
 
+void setWindowTitle(const char* title);
 
 
 

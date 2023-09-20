@@ -106,11 +106,10 @@ void ProductoRepository::generarReporte()
     }
 
 }
-void ProductoRepository::eliminar(int id)
+bool ProductoRepository::eliminar(int id)
 {
     if (!this->existeProducto(id)){
-        cout<<"No existe dicho producto\n";
-        return;
+        return false;
     }
     Producto p;
     for(int i =0;i<productos.size();i++){
@@ -118,7 +117,7 @@ void ProductoRepository::eliminar(int id)
             p = productos[i];
             productos.erase(productos.begin()+i);
             fileManager.eliminar(p);
-            cout<<"Producto eliminado correctamente"<<endl;
+            return true;
         }
     }
     

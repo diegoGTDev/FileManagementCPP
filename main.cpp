@@ -7,14 +7,16 @@
 using namespace std;
 
 int main(){
+    system("Title Sistema de inventario");
     ProductoRepository productoRepository("inventario");
+    bool esperarTecla = true;
     inicio:
     system("cls");
     imprimirMenu();
     switch(getch()){
-        case '1': menu_agregarProductos(productoRepository);break;
+        case '1': 
+            esperarTecla = menu_agregarProductos(productoRepository);break;
         case '2': 
-            productoRepository.generarReporte();
             menu_modificarProductos(productoRepository);
             break;
         case '3': menu_generarReporte(productoRepository);break;
@@ -26,7 +28,12 @@ int main(){
             gotoxy(45, 10);
             cout<<"\033[1;31mHas salido correctamente\033[0m\n\n\n\n";return 0;break;
     }
-    getch();
+    if (esperarTecla){
+        getch();
+    }
+    else{
+        esperarTecla = true;
+    }
     goto inicio;
     return 0;
 }
