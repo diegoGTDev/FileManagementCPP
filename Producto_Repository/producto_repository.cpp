@@ -81,6 +81,11 @@ void ProductoRepository::generarReporte()
     gotoxy(75, 5);
     cout<<"Categoria: ";
     cambiarColor(15);
+
+    for(int i= 0; i<63; i++){
+        gotoxy(22+i,6);
+        cout<<"-";
+    }
     
     for(int i = 0; i<productos.size(); i++){
         char categoria[20];
@@ -90,19 +95,19 @@ void ProductoRepository::generarReporte()
             case 2: strcpy(categoria, "Limpieza");break;
             case 3: strcpy(categoria, "Otros");break;
         }
-        gotoxy(22, 6+i);
+        gotoxy(22, 7+i);
         cout<<productos[i].id;
-        gotoxy(30,6+i);
+        gotoxy(30,7+i);
         cout<<productos[i].nombre;
-        gotoxy(45, 6+i);
+        gotoxy(45, 7+i);
         cout<<productos[i].cantidad;
-        gotoxy(55,6+i);
+        gotoxy(55,7+i);
         cout<<productos[i].precio;
-        gotoxy(65,6+i);
+        gotoxy(65,7+i);
         cout<<productos[i].lote;
-        gotoxy(75,6+i);
+        gotoxy(75,7+i);
         cout<<categoria;
-        gotoxy(0,6+i+2);
+        gotoxy(0,7+i+2);
     }
 
 }
