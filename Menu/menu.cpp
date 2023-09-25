@@ -168,9 +168,11 @@ void menu_modificarProductos(ProductoRepository& productoRepository){
                 cout<<"Opcion invalida";
                 todo_valido = false;
             }
+            
             if (todo_valido){
                 gotoxy(30, 24);
-                cout<<"\033[8;32mRegistro modificado correctamente\033[0m";
+                cout<<"\033[1;32mRegistro modificado correctamente\033[0m";
+                
             }
             else{
                 gotoxy(30, 24);

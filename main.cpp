@@ -26,7 +26,9 @@ int main(){
         case '5': 
             system("cls");
             gotoxy(45, 10);
-            cout<<"\033[1;31mHas salido correctamente\033[0m\n\n\n\n";return 0;break;
+            cout<<"\033[1;31mHas salido correctamente\033[0m\n\n\n\n";
+            return 0;
+            break;
     }
     if (esperarTecla){
         getch();
